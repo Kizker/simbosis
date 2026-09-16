@@ -29,6 +29,8 @@ Icon
 # Database Dumps & Big Binary Dumps
 *.sql
 *.sqlite
+*.zip
+*.tar.gz
 
 # Framework storage logs & cache
 /storage/app/*

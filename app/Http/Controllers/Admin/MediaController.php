@@ -73,10 +73,12 @@ class MediaController extends Controller
         $request->validate(['file' => ['required','file']]);
 
         $media = $uploader->uploadPublicImage($request->file('file'), Auth::id());
+        $url = asset('storage/'.$media->path);
 
         return response()->json([
             'id' => $media->id,
-            'url' => asset('storage/'.$media->path),
+            'location' => $url,
+            'url' => $url,
             'path' => $media->path,
             'mime' => $media->mime,
         ]);

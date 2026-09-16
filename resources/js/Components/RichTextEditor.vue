@@ -37,7 +37,11 @@ const handleUpdate = (value) => {
 };
 
 function csrfToken() {
-  return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+  const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+  if (match) {
+    return decodeURIComponent(match[1]);
+  }
+  return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 }
 
 const isReady = ref(false);
@@ -88,12 +92,20 @@ const editorInit = ref({
     return new Promise(async (resolve, reject) => {
       try {
         const formData = new FormData();
+        const token = csrfToken();
         formData.append('file', blobInfo.blob(), blobInfo.filename());
+        if (token) {
+          formData.append('_token', token);
+        }
 
         const res = await fetch('/harmony-access/media', {
           method: 'POST',
+          credentials: 'same-origin',
           headers: {
-            'X-CSRF-TOKEN': csrfToken() || ''
+            'X-CSRF-TOKEN': token,
+            'X-XSRF-TOKEN': token,
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
           },
           body: formData
         });
@@ -104,8 +116,9 @@ const editorInit = ref({
         }
 
         const data = await res.json();
-        if (data && data.url) {
-          resolve(data.url);
+        const finalUrl = data?.url || data?.location;
+        if (finalUrl) {
+          resolve(finalUrl);
         } else {
           reject('Format respons tidak valid dari server.');
         }

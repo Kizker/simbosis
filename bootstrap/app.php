@@ -27,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', RedirectLegacySlug::class);
         $middleware->appendToGroup('web', EnsureAdminAreaIsSecure::class);
         $middleware->appendToGroup('web', \App\Http\Middleware\HandleInertiaRequests::class);
+
+        $middleware->validateCsrfTokens(except: [
+            'harmony-access/media',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
