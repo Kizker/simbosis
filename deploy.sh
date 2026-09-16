@@ -29,7 +29,7 @@ fi
 
 # 3. Instalasi Dependensi PHP (Composer)
 echo "📦 Menginstall dependensi PHP (Composer Production)..."
-composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs
 
 # 4. Migrasi Database MySQL
 echo "🗄️ Menjalankan migrasi database MySQL..."

@@ -41,7 +41,8 @@ RUN composer install \
     --no-scripts \
     --no-progress \
     --no-interaction \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --ignore-platform-reqs
 
 # ------------------------------------------------------------------------------
 # Stage 3: Production Runtime (Nginx + PHP 8.2 FPM Alpine)
