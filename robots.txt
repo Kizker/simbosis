@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://simbiosis.news/index.php?sitemap.xml

@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class AuthorProfile extends Model
+{
+    protected $fillable = ['user_id','bio','avatar_path','twitter','instagram','website'];
+    public function user(): BelongsTo { return $this->belongsTo(User::class); }
+}

@@ -1,0 +1,1 @@
+function s(e){if(!e)return"";if(e.includes("T")||/^\d{4}-\d{2}-\d{2}/.test(e))try{const n=new Date(e);if(isNaN(n.getTime()))return e;const t=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],r=n.getDate(),i=t[n.getMonth()],o=n.getFullYear();return`${r} ${i} ${o}`}catch{return e}return e}export{s as f};
