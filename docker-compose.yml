@@ -1,0 +1,58 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simbiosis_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    environment:
+      - APP_NAME=Simbiosis News
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://simbiosis.news
+      - DB_CONNECTION=mysql
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - simbiosis_storage:/var/www/html/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - simbiosis_network
+
+  # Database MySQL Container (Opsional - aktifkan jika tidak menggunakan Database Cloud/Hostinger)
+  # Cara aktifkan: docker compose --profile local-db up -d
+  db:
+    image: mysql:8.0
+    container_name: simbiosis_db
+    restart: unless-stopped
+    profiles:
+      - local-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_DATABASE:-u141095167_simbiosis}
+      MYSQL_USER: ${DB_USERNAME:-u141095167_usersimbi}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-0G!t+rn>w}
+    volumes:
+      - simbiosis_db_data:/var/lib/mysql
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    networks:
+      - simbiosis_network
+
+networks:
+  simbiosis_network:
+    name: simbiosis_net
+    driver: bridge
+
+volumes:
+  simbiosis_storage:
+    name: simbiosis_storage
+  simbiosis_db_data:
+    name: simbiosis_db_data

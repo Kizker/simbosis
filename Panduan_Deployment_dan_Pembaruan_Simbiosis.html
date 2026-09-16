@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Deployment & Pembaruan Simbiosis News</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 12mm 8mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      line-height: 1.38;
+      font-size: 11.2px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      page-break-after: always;
+      height: calc(100vh - 16mm);
+      max-height: 275mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Top Metadata Bar */
+    .doc-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9px;
+      color: #64748b;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* Header Section */
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 9px;
+      padding-bottom: 7px;
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+
+    .header-left h1 {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-left h1 span.logo-accent {
+      color: #0d9488;
+    }
+
+    .badge-prod {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: #475569;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 9.5px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    .header-right strong {
+      color: #0f172a;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 9px;
+    }
+
+    .metric-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #0d9488;
+      margin-bottom: 2px;
+    }
+
+    .metric-value {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #0f172a;
+      font-family: 'JetBrains Mono', monospace;
+      word-break: break-all;
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 7px 0 5px 0;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 3.5px;
+      height: 13px;
+      background: #0d9488;
+      border-radius: 2px;
+    }
+
+    .section-desc {
+      font-size: 10.5px;
+      color: #475569;
+      margin-bottom: 5px;
+    }
+
+    /* Steps */
+    .step-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 9px;
+      margin-bottom: 6px;
+      background: #ffffff;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .step-badge {
+      width: 17px;
+      height: 17px;
+      background: #0d9488;
+      color: #ffffff;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Terminal Code Block */
+    .terminal-box {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 5px;
+      padding: 6px 9px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 9.5px;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+
+    .terminal-box .cmd {
+      color: #38bdf8;
+    }
+
+    .terminal-box .comment {
+      color: #94a3b8;
+    }
+
+    .terminal-box .output {
+      color: #4ade80;
+    }
+
+    /* Dual Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 6px;
+    }
+
+    /* Tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin-bottom: 7px;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .styled-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 5px 7px;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .styled-table td {
+      padding: 4.5px 7px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+
+    .styled-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tag-blue {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 9px;
+    }
+
+    .tag-emerald {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 9px;
+    }
+
+    .tag-amber {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 9px;
+    }
+
+    /* Architecture Diagram */
+    .diagram-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+
+    .diagram-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      font-size: 9.5px;
+      text-align: center;
+    }
+
+    .diagram-node {
+      background: #ffffff;
+      border: 1.5px solid #0d9488;
+      border-radius: 5px;
+      padding: 5px 7px;
+      flex: 1;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .diagram-node strong {
+      display: block;
+      color: #0f172a;
+      font-size: 10px;
+    }
+
+    .diagram-node span {
+      color: #64748b;
+      font-size: 8.5px;
+    }
+
+    .diagram-arrow {
+      color: #0d9488;
+      font-weight: 800;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Notice & Alert Box */
+    .alert-box {
+      background: #f0fdfa;
+      border-left: 3px solid #0d9488;
+      padding: 5px 8px;
+      border-radius: 0 5px 5px 0;
+      font-size: 10px;
+      color: #134e4a;
+      margin-bottom: 6px;
+    }
+
+    .alert-box strong {
+      color: #115e59;
+    }
+
+    /* Document Footer */
+    .doc-footer {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.5px;
+      color: #64748b;
+    }
+
+    .page-number {
+      font-weight: 700;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- HALAMAN 1: SPESIFIKASI SERVER & ARSITEKTUR DEPLOYMENT                     -->
+  <!-- ========================================================================= -->
+  <div class="page">
+    <div>
+      <div class="doc-topbar">
+        <span>Simbiosis News Documentation System &bull; Production Release</span>
+        <span>Standard Operating Procedure (SOP) &bull; ID: SOP-SIM-2026-V1</span>
+      </div>
+
+      <div class="header-section">
+        <div class="header-left">
+          <h1>Simbiosis <span class="logo-accent">News</span> <span class="badge-prod">Production Ready</span></h1>
+          <div class="header-subtitle">Panduan Resmi Deployment Server & Pembaruan Sistem (Hostinger & Docker Container)</div>
+        </div>
+        <div class="header-right">
+          <div>Target: <strong>simbiosis.news</strong></div>
+          <div>Stack: <strong>Laravel 12 &bull; Vue 3 &bull; MySQL</strong></div>
+          <div>Tanggal: <strong>September 2026</strong></div>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <strong>Ringkasan Eksekutif:</strong> Sistem telah di-audit, dibersihkan dari 100% dead code/malware bekas hosting lama, dan disiapkan untuk dua metode deployment: <strong>Opsi A (Direct Hostinger via SSH/Git)</strong> dan <strong>Opsi B (Docker Container Multi-Stage)</strong>.
+      </div>
+
+      <div class="section-title">1. Parameter Lingkungan Server Produksi</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Website Domain</div>
+          <div class="metric-value">https://simbiosis.news</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Host IP & Port SSH</div>
+          <div class="metric-value">46.202.138.88 : 65002</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">User SSH & Path</div>
+          <div class="metric-value">u141095167 &bull; public_html</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Database MySQL</div>
+          <div class="metric-value">u141095167_simbiosis</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">User Database</div>
+          <div class="metric-value">u141095167_usersimbi</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Password DB</div>
+          <div class="metric-value">0G!t+rn&gt;w</div>
+        </div>
+      </div>
+
+      <div class="section-title">2. Topologi & Alur Deployment</div>
+      <div class="diagram-box">
+        <div class="diagram-flow">
+          <div class="diagram-node">
+            <strong>Local / Dev Mac</strong>
+            <span>Clean Code & Test Passed</span>
+          </div>
+          <div class="diagram-arrow">&rarr;</div>
+          <div class="diagram-node">
+            <strong>GitHub (Private)</strong>
+            <span>Kizker/simbosis (main)</span>
+          </div>
+          <div class="diagram-arrow">&rarr;</div>
+          <div class="diagram-node">
+            <strong>Hostinger Server</strong>
+            <span>SSH Port 65002 / Git Pull</span>
+          </div>
+          <div class="diagram-arrow">&rarr;</div>
+          <div class="diagram-node">
+            <strong>Runtime Web</strong>
+            <span>PHP 8.2 FPM / Docker</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">3. Skema Pilihan Deployment</div>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Kriteria</th>
+            <th>Opsi A: Hostinger Direct (Rekomendasi Hostinger)</th>
+            <th>Opsi B: Docker Multi-Stage (VPS / Cloud)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Arsitektur</strong></td>
+            <td>Bare-metal / Cloud Shared Runtime bawaan Hostinger</td>
+            <td>Containerized (Nginx + PHP-FPM 8.2 Alpine)</td>
+          </tr>
+          <tr>
+            <td><strong>Kelebihan</strong></td>
+            <td>Zero overhead RAM, terintegrasi SSL gratis hPanel otomatis</td>
+            <td>Isolasi total dependency, portabilitas antar cloud 100%</td>
+          </tr>
+          <tr>
+            <td><strong>Script Deploy</strong></td>
+            <td><code style="font-family:'JetBrains Mono';">bash deploy.sh</code></td>
+            <td><code style="font-family:'JetBrains Mono';">bash deploy-docker.sh</code></td>
+          </tr>
+          <tr>
+            <td><strong>Alamat Akses</strong></td>
+            <td><span class="tag-emerald">https://simbiosis.news</span></td>
+            <td><span class="tag-blue">http://localhost:8000 &bull; Reverse Proxy</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">4. Persiapan Akses SSH Server (Langkah Pertama)</div>
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-badge">1</span>
+          <span>Menghubungkan Terminal ke Server Hostinger via SSH</span>
+        </div>
+        <div class="terminal-box">
+          <span class="comment"># Jalankan perintah koneksi SSH menggunakan port 65002</span><br>
+          <span class="cmd">ssh -p 65002 u141095167@46.202.138.88</span><br>
+          <span class="comment"># Masukkan password SSH hosting Anda saat diminta</span><br>
+          <span class="output">u141095167@46.202.138.88's password: [Ketik password SSH]</span><br>
+          <span class="cmd">cd ~/domains/simbiosis.news/public_html</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>CV. Satu Harmony &bull; Portal Berita Simbiosis News</span>
+      <span class="page-number">Halaman 1 dari 3</span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HALAMAN 2: PROSEDUR EKSEKUSI DEPLOYMENT                                   -->
+  <!-- ========================================================================= -->
+  <div class="page">
+    <div>
+      <div class="doc-topbar">
+        <span>Simbiosis News Documentation System &bull; Production Release</span>
+        <span>Standard Operating Procedure (SOP) &bull; ID: SOP-SIM-2026-V1</span>
+      </div>
+
+      <div class="header-section">
+        <div class="header-left">
+          <h1>Instruksi Eksekusi <span class="logo-accent">Deployment</span></h1>
+          <div class="header-subtitle">Panduan Langkah Demi Langkah Penerapan ke Server Produksi</div>
+        </div>
+        <div class="header-right">
+          <div>Status: <span class="tag-emerald">Tested &amp; Verified</span></div>
+          <div>Target Path: <code style="font-family:'JetBrains Mono'; font-size:8.5px;">~/domains/simbiosis.news/public_html</code></div>
+        </div>
+      </div>
+
+      <div class="section-title">Metode A: Deployment Langsung di Server Hostinger (Direkomendasikan)</div>
+      <div class="section-desc">Gunakan metode ini pada shared/cloud hosting Hostinger tempat domain <code style="font-family:'JetBrains Mono';">simbiosis.news</code> terdaftar.</div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-badge">A1</span>
+          <span>Kloning Repositori Git & Persiapan Konfigurasi .env</span>
+        </div>
+        <div class="terminal-box">
+          <span class="comment"># Masuk ke direktori domain website</span><br>
+          <span class="cmd">cd ~/domains/simbiosis.news/public_html</span><br>
+          <span class="comment"># Jika folder masih kosong, clone langsung repositori GitHub:</span><br>
+          <span class="cmd">git clone https://github.com/Kizker/simbosis.git .</span><br>
+          <span class="comment"># Salin template .env.production ke .env</span><br>
+          <span class="cmd">cp .env.production .env</span>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-badge">A2</span>
+          <span>Jalankan Script Automasi Deployment Hostinger</span>
+        </div>
+        <div class="terminal-box">
+          <span class="comment"># Berikan izin eksekusi dan jalankan deploy.sh</span><br>
+          <span class="cmd">chmod +x deploy.sh &amp;&amp; ./deploy.sh</span><br>
+          <span class="output">[Simbiosis News] Memulai proses deployment ke server produksi Hostinger...</span><br>
+          <span class="output">📦 Menginstall dependensi PHP (Composer Production)...</span><br>
+          <span class="output">🗄️ Menjalankan migrasi database MySQL...</span><br>
+          <span class="output">🧹 Mengoptimasi cache Laravel...</span><br>
+          <span class="output">🔒 Menyesuaikan hak akses file & direktori...</span><br>
+          <span class="output">✅ [Simbiosis News] Deployment Hostinger Selesai!</span>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:9px;">Metode B: Deployment Berbasis Docker Container (VPS / Server Docker)</div>
+      <div class="section-desc">Gunakan metode ini jika server memiliki Docker Engine dan Docker Compose terpasang.</div>
+
+      <div class="two-col">
+        <div class="step-card" style="margin-bottom:0;">
+          <div class="step-header">
+            <span class="step-badge">B1</span>
+            <span>Konfigurasi & Build Container</span>
+          </div>
+          <div class="terminal-box" style="font-size:9px;">
+            <span class="comment"># Pastikan .env siap</span><br>
+            <span class="cmd">cp .env.production .env</span><br>
+            <span class="comment"># Jalankan script deploy docker</span><br>
+            <span class="cmd">chmod +x deploy-docker.sh</span><br>
+            <span class="cmd">./deploy-docker.sh</span>
+          </div>
+        </div>
+
+        <div class="step-card" style="margin-bottom:0;">
+          <div class="step-header">
+            <span class="step-badge">B2</span>
+            <span>Cek Status & Healthcheck</span>
+          </div>
+          <div class="terminal-box" style="font-size:9px;">
+            <span class="comment"># Cek container aktif</span><br>
+            <span class="cmd">docker compose ps</span><br>
+            <span class="comment"># Cek log aplikasi jika diperlukan</span><br>
+            <span class="cmd">docker compose logs -f app</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:9px;">Konfigurasi Web Server Nginx / Apache Hostinger</div>
+      <div class="alert-box">
+        <strong>Penting: Document Root</strong><br>
+        Pastikan Document Root pada cPanel/hPanel Hostinger mengarah ke subfolder <strong><code style="font-family:'JetBrains Mono';">public</code></strong> (yakni <code style="font-family:'JetBrains Mono';">~/domains/simbiosis.news/public_html/public</code>) atau gunakan berkas <code style="font-family:'JetBrains Mono';">.htaccess</code> root yang telah disediakan untuk meneruskan request ke folder public secara aman.
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>CV. Satu Harmony &bull; Portal Berita Simbiosis News</span>
+      <span class="page-number">Halaman 2 dari 3</span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HALAMAN 3: PEMBARUAN KODE, PERAWATAN, & TROUBLESHOOTING                  -->
+  <!-- ========================================================================= -->
+  <div class="page">
+    <div>
+      <div class="doc-topbar">
+        <span>Simbiosis News Documentation System &bull; Production Release</span>
+        <span>Standard Operating Procedure (SOP) &bull; ID: SOP-SIM-2026-V1</span>
+      </div>
+
+      <div class="header-section">
+        <div class="header-left">
+          <h1>Pembaruan Kode &amp; <span class="logo-accent">Troubleshooting</span></h1>
+          <div class="header-subtitle">Prosedur Update Rutin, Pemeliharaan Database, dan Solusi Masalah</div>
+        </div>
+        <div class="header-right">
+          <div>Monitoring: <strong>Healthcheck 24/7</strong></div>
+          <div>Admin Path: <strong>/harmony-access/login</strong></div>
+        </div>
+      </div>
+
+      <div class="section-title">1. Prosedur Pembaruan Kode (Routine Update)</div>
+      <div class="section-desc">Ketika ada perbaikan bug atau penambahan fitur di komputer lokal:</div>
+
+      <div class="two-col">
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-badge">1</span>
+            <span>Di Komputer Lokal (Mac)</span>
+          </div>
+          <div class="terminal-box" style="font-size:9px;">
+            <span class="comment"># 1. Commit dan push ke GitHub</span><br>
+            <span class="cmd">git add .</span><br>
+            <span class="cmd">git commit -m "feat: pembaruan fitur X"</span><br>
+            <span class="cmd">git push origin main</span>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-badge">2</span>
+            <span>Di Server Produksi (Hostinger)</span>
+          </div>
+          <div class="terminal-box" style="font-size:9px;">
+            <span class="comment"># 1. SSH dan jalankan deploy.sh</span><br>
+            <span class="cmd">ssh -p 65002 u141095167@46.202.138.88</span><br>
+            <span class="cmd">cd ~/domains/simbiosis.news/public_html</span><br>
+            <span class="cmd">./deploy.sh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">2. Matriks Pemecahan Masalah (Troubleshooting Guide)</div>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Gejala Masalah</th>
+            <th style="width: 35%;">Penyebab Potensial</th>
+            <th style="width: 40%;">Solusi Langsung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag-amber">Error 500 Internal Server</span></td>
+            <td>Izin folder storage belum 775 atau file .env belum terbaca.</td>
+            <td>Jalankan <code style="font-family:'JetBrains Mono'; font-size:9px;">chmod -R 775 storage bootstrap/cache</code> dan periksa <code style="font-family:'JetBrains Mono'; font-size:9px;">storage/logs/laravel.log</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="tag-amber">Gambar Artikel 404 / Hilang</span></td>
+            <td>Symlink storage publik belum terbentuk atau putus.</td>
+            <td>Hapus link lama lalu pasang ulang: <code style="font-family:'JetBrains Mono'; font-size:9px;">rm -f public/storage &amp;&amp; php artisan storage:link</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="tag-amber">Perubahan Kode Tidak Muncul</span></td>
+            <td>OPcache PHP atau cache route/view Laravel masih aktif.</td>
+            <td>Bersihkan cache dengan: <code style="font-family:'JetBrains Mono'; font-size:9px;">php artisan optimize:clear &amp;&amp; php artisan view:clear</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="tag-amber">Gagal Login Admin 419 Page Expired</span></td>
+            <td>CSRF Token mismatch atau permission session directory terkunci.</td>
+            <td>Pastikan <code style="font-family:'JetBrains Mono'; font-size:9px;">APP_URL=https://simbiosis.news</code> memakai HTTPS dan bersihkan cookie browser.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">3. Perintah Cepat Maintenance (Quick Cheat Sheet)</div>
+      <div class="terminal-box" style="font-size:9.5px; line-height:1.45;">
+        <span class="comment"># Masuk Mode Maintenance (Tampilkan halaman pemeliharaan ke pengunjung publik)</span><br>
+        <span class="cmd">php artisan down --secret="simbiosis-maintenance-bypass"</span><br><br>
+        <span class="comment"># Kembalikan Website ke Mode Aktif Publik</span><br>
+        <span class="cmd">php artisan up</span><br><br>
+        <span class="comment"># Bersihkan Log & Cache secara total</span><br>
+        <span class="cmd">php artisan optimize:clear</span>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>CV. Satu Harmony &bull; Portal Berita Simbiosis News</span>
+      <span class="page-number">Halaman 3 dari 3</span>
+    </div>
+  </div>
+
+</body>
+</html>
